@@ -5,9 +5,7 @@ $password = "SALAsana19";
 $dbname = "id10269157_arvontaesineet";
 
 $itemName = $_POST["itemName"];
-$itemDesc = $_POST["itemDesc"];
-$quantity = $_POST["quantity"];
-$itemID =$_POST['itemId']
+$itemID = $_POST["itemId"];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -16,12 +14,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-for($x = 0; $x < $quantity; $x++)
-{
-    $query = "SELECT *FROM  Prizes WHERE ItemName='$itemName'"
-    $sql = "DELETE FROM Prizes WHERE ItemName='$itemName'";
-    $result = $conn->query($sql);
-}
+
+//php my admin reference for deleting:
+//DELETE FROM `Prizes` WHERE `Prizes`.`ID` = 6
+//$query = "DELETE FROM Prizes WHERE I='$itemID'";
+//$result = $mysqli->query($query)or die('{"Status":[{"Code":2}]}');
+$sql = "DELETE FROM Prizes WHERE ItemID='$itemID'";
+$result = $conn->query($sql);
+
 
 // if ($result->num_rows > 0) {
 //     // output data of each row
