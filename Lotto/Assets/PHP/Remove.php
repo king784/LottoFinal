@@ -7,6 +7,7 @@ $dbname = "id10269157_arvontaesineet";
 $itemName = $_POST["itemName"];
 $itemDesc = $_POST["itemDesc"];
 $quantity = $_POST["quantity"];
+$itemID =$_POST['itemId']
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -17,7 +18,8 @@ if ($conn->connect_error) {
 
 for($x = 0; $x < $quantity; $x++)
 {
-    $sql = "DELETE FROM Prizes WHERE itemName='$itemName'";
+    $query = "SELECT *FROM  Prizes WHERE ItemName='$itemName'"
+    $sql = "DELETE FROM Prizes WHERE ItemName='$itemName'";
     $result = $conn->query($sql);
 }
 
