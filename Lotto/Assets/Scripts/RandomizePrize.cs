@@ -16,6 +16,11 @@ public class RandomizePrize : MonoBehaviour
     Transform ballStartT;
     public Transform ballEndT;
 
+    [SerializeField]
+    ParticleSystem winPar;
+    [SerializeField]
+    ParticleSystem losePar;
+
     void Start()
     {
         mainCam = Camera.main;
@@ -74,6 +79,7 @@ public class RandomizePrize : MonoBehaviour
             lerp += Time.deltaTime * 0.1f;
             yield return null;
         }
+        
     }
 
     public void SpawnBalls()
