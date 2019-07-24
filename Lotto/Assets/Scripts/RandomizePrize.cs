@@ -24,6 +24,10 @@ public class RandomizePrize : MonoBehaviour
     bool win = false;
     bool hasLottod = false;
     public LightColorScript lightColorScript;
+    public Material ballMat;
+
+    float minForce = 15.0f; //3
+    float maxForce = 30.0f; //15
 
     void Start()
     {
@@ -38,7 +42,7 @@ public class RandomizePrize : MonoBehaviour
         {
             Lottery();
         }
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R) || Input.touchCount >= 2)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -121,15 +125,17 @@ public class RandomizePrize : MonoBehaviour
             balls.Add(ball);
             ball.transform.position = ballSpawnPointT.position;
             ball.AddComponent<Rigidbody>();
+            ball.AddComponent<ScaleBall>();
             ball.GetComponent<SphereCollider>().material = bouncyMat;
-            ball.AddComponent<AddRandomForce>();
-            ball.GetComponent<Rigidbody>().useGravity = false;
             ball.GetComponent<Rigidbody>().AddForce(new Vector3(
-                Random.Range(1.0f, 3.0f),
-                Random.Range(1.0f, 3.0f),
-                Random.Range(1.0f, 3.0f)
+                Random.Range(minForce, maxForce),
+                Random.Range(minForce, maxForce),
+                Random.Range(minForce, maxForce)
             ), ForceMode.Impulse);
+            ball.gameObject.layer = 9;
+            ball.GetComponent<Rigidbody>().useGravity = false;
             ball.GetComponent<Rigidbody>().mass = 0.0f;
+            ball.GetComponent<Renderer>().material = ballMat;
             ball.GetComponent<Renderer>().material.color = Color.red;
         }
 
@@ -139,15 +145,17 @@ public class RandomizePrize : MonoBehaviour
             balls.Add(ball);
             ball.transform.position = ballSpawnPointT.position;
             ball.AddComponent<Rigidbody>();
+            ball.AddComponent<ScaleBall>();
             ball.GetComponent<SphereCollider>().material = bouncyMat;
-            ball.AddComponent<AddRandomForce>();
-            ball.GetComponent<Rigidbody>().useGravity = false;
             ball.GetComponent<Rigidbody>().AddForce(new Vector3(
-                Random.Range(1.0f, 3.0f),
-                Random.Range(1.0f, 3.0f),
-                Random.Range(1.0f, 3.0f)
+                Random.Range(minForce, maxForce),
+                Random.Range(minForce, maxForce),
+                Random.Range(minForce, maxForce)
             ), ForceMode.Impulse);
+            ball.gameObject.layer = 9;
+            ball.GetComponent<Rigidbody>().useGravity = false;
             ball.GetComponent<Rigidbody>().mass = 0.0f;
+            ball.GetComponent<Renderer>().material = ballMat;
             ball.GetComponent<Renderer>().material.color = Color.green;
         }
     }
