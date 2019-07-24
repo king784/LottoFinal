@@ -19,7 +19,7 @@ public class scaleConfetti : MonoBehaviour
             hasFanfared = true;
         }
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(7.5f);
         
         if(next < konfettiKasa.Length){
             nextColor += new Color(0,0,0,alphaSpeed);

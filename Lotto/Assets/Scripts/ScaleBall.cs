@@ -14,8 +14,8 @@ public class ScaleBall : MonoBehaviour
         float lerp = 0.0f;
         while(lerp <= 1.0f)
         {
-            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, lerp);
-            lerp += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, Easing.EaseOutBounce(lerp));
+            lerp += Time.deltaTime * 0.2f;
             yield return null;
         }
     }

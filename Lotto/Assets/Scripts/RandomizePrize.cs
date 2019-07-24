@@ -93,7 +93,7 @@ public class RandomizePrize : MonoBehaviour
 
         if(win)
         {
-            StartCoroutine(ParticleCooldown(winPar, 0.5f));
+            StartCoroutine(ParticleCooldown(winPar, 1f));
             lightColorScript.StartLightCO(true);
         }
         else
@@ -105,7 +105,7 @@ public class RandomizePrize : MonoBehaviour
         float lerp = 0;
         while(lerp <= 1f)
         {
-            balls[victoryBall].transform.position = Vector3.Lerp(ballStartT.position, ballEndT.position, lerp);
+            balls[victoryBall].transform.position = Vector3.Lerp(ballStartT.position, ballEndT.position, Easing.EaseOutBounce(lerp));
             lerp += Time.deltaTime * 0.1f;               
             yield return null;
         }   

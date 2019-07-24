@@ -6,6 +6,7 @@ public class trumpetsScript : MonoBehaviour
 {
     Animator anim;
     public Transform matto;
+    public ParticleSystem[] torviPS;
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +24,9 @@ public class trumpetsScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
         anim.SetBool("Honkhonk", true);
+        yield return new WaitForSeconds(0.5f);
+        torviPS[0].Play();
+        yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+        torviPS[1].Play();
     }
 }
