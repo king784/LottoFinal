@@ -71,6 +71,10 @@ public class RandomizePrize : MonoBehaviour
         {
             mainCam.transform.position = Vector3.Lerp(camStartT.position, camEndT.position, lerp);
             lerp += Time.deltaTime * 0.1f;
+            ///
+            if(win)
+                StartCoroutine(GameObject.Find("ConfettiesStacking").GetComponent<scaleConfetti>().spawnConfetties());
+            ///
             yield return null;
         }
     }
@@ -98,7 +102,7 @@ public class RandomizePrize : MonoBehaviour
         while(lerp <= 1f)
         {
             balls[victoryBall].transform.position = Vector3.Lerp(ballStartT.position, ballEndT.position, lerp);
-            lerp += Time.deltaTime * 0.1f;
+            lerp += Time.deltaTime * 0.1f;               
             yield return null;
         }   
     }
