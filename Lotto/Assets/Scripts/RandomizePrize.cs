@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RandomizePrize : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class RandomizePrize : MonoBehaviour
     ParticleSystem winPar;
     [SerializeField]
     ParticleSystem losePar;
+    bool win = false;
+    bool hasLottod = false;
+    public LightColorScript lightColorScript;
 
     void Start()
     {
@@ -30,24 +34,31 @@ public class RandomizePrize : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0 && !hasLottod)
         {
             Lottery();
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
     
     [ContextMenu("Lottoo")]
     public void Lottery()
     {
+        hasLottod = true;
         int winInt = Random.Range(0, (emptyTicket + victoryTicket));
         Debug.Log(winInt);
         if(winInt < emptyTicket)
         {
             Debug.Log("Hävisit");
+            win = false;
         }
         else
         {
             Debug.Log("Voitit");
+            win = true;
         }
         StartCoroutine(MoveCameraToWin());
         StartCoroutine(MoveBallToWin(Mathf.FloorToInt(winInt*lessBalls)));
@@ -72,14 +83,30 @@ public class RandomizePrize : MonoBehaviour
         balls[victoryBall].GetComponent<SphereCollider>().enabled = false;
         ballStartT = balls[victoryBall].transform;
 
+        if(win)
+        {
+            StartCoroutine(ParticleCooldown(winPar, 0.5f));
+            lightColorScript.StartLightCO(true);
+        }
+        else
+        {
+            StartCoroutine(ParticleCooldown(losePar, 0.8f));
+            lightColorScript.StartLightCO(false);
+        }
+
         float lerp = 0;
-        while(lerp <= 1)
+        while(lerp <= 1f)
         {
             balls[victoryBall].transform.position = Vector3.Lerp(ballStartT.position, ballEndT.position, lerp);
             lerp += Time.deltaTime * 0.1f;
             yield return null;
-        }
-        
+        }   
+    }
+
+    IEnumerator ParticleCooldown(ParticleSystem ps, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        ps.Play();
     }
 
     public void SpawnBalls()
