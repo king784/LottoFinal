@@ -9,7 +9,7 @@ public class DB_ModificationUIController : MonoBehaviour
 
     public GameObject DBModificationMenu;
 
-    public GameObject remeovePopUp;
+    public GameObject removePopUp;
     public GameObject AddPopUp;
     private void Start()
     {
@@ -31,7 +31,7 @@ public class DB_ModificationUIController : MonoBehaviour
 
     public void openRemovePopUP()
     {
-        remeovePopUp.SetActive(true);
+        removePopUp.SetActive(true);
     }
 
     public void openAddPopUp()
@@ -42,7 +42,7 @@ public class DB_ModificationUIController : MonoBehaviour
     public void closeAllPanels()
     {
         removeFromDBPanel.SetActive(false);
-        remeovePopUp.SetActive(false);
+        removePopUp.SetActive(false);
         AddPopUp.SetActive(false);
         addToDBPanel.SetActive(false);
         DBModificationMenu.SetActive(true);
