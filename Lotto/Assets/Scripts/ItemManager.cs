@@ -35,10 +35,19 @@ public class ItemManager : MonoBehaviour
     // Randomizes an item and removes it from local item list and database
     public Item RandomizeItem()
     {
-        int randInt = Random.Range(0, allItems.Count);
-        Item tempItem = allItems[randInt];
-        allItems.RemoveAt(randInt);
-        FindObjectOfType<DoPHPStuff>().RemovePHPWithParameters(tempItem.itemId.ToString(), tempItem.itemName);
-        return tempItem;
+        if(allItems.Count <= 0)
+        {
+            Item tempItem = new Item(0,"","");
+            FindObjectOfType<UIManager>().ShowNoPrizesCanvas();
+            return tempItem;
+        }
+        else
+        {
+            int randInt = Random.Range(0, allItems.Count);
+            Item tempItem = allItems[randInt];
+            allItems.RemoveAt(randInt);
+            FindObjectOfType<DoPHPStuff>().RemovePHPWithParameters(tempItem.itemId.ToString(), tempItem.itemName);
+            return tempItem;
+        }
     }
 }
