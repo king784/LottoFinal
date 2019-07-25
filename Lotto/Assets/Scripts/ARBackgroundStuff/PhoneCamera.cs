@@ -25,7 +25,7 @@ public class PhoneCamera : MonoBehaviour
         WebCamDevice[] devices = WebCamTexture.devices;//add camera's to an array
         if (devices.Length == 0)//oh no there aren't any cameras available
         {
-            Debug.Log("No camera detected.");
+            // Debug.Log("No camera detected.");
             camAvailable = false;
             return;//let's just stop here -_-
         }
@@ -35,18 +35,18 @@ public class PhoneCamera : MonoBehaviour
             if (!devices[i].isFrontFacing)//if camera isn't the front camera
             {
                 backCam = new WebCamTexture(devices[i].name, Screen.width, Screen.height);//back camera is stored with the given values
-                e2.text = "found a camera that wasn't front facing";
+                //e2.text = "found a camera that wasn't front facing";
             }
         }
 
         if (backCam == null)//back cam wasn't actually found after all
         {
-            Debug.Log("No back camera found :( .");
+            //Debug.Log("No back camera found :( .");
             return;
         }
 
         backCam.Play();//this makes the device use the camera
-        e3.text = "camera was set to play";
+        //e3.text = "camera was set to play";
         background.texture = backCam;//make the camera view be the background texture
         camAvailable = true;
     }
@@ -55,13 +55,13 @@ public class PhoneCamera : MonoBehaviour
     {
         if (!camAvailable)
         {
-            e1.text = "no camera available";
+            //e1.text = "no camera available";
             return;
         }
 
         if (camAvailable)
         {
-            e1.text = "Camera is available";
+            //e1.text = "Camera is available";
         }
 
         float ratio = (float)backCam.width / (float)backCam.height;//get the precise heigh and width with float
@@ -73,6 +73,6 @@ public class PhoneCamera : MonoBehaviour
         background.rectTransform.localEulerAngles = new Vector3(0, 0, orient);//background orientation follows the camera view
 
 
-        e4.text = string.Format($"Ratio: {ratio}, scaleY: {scaleY}, orient: {orient}, background: {background.ToString()}");
+        //e4.text = string.Format($"Ratio: {ratio}, scaleY: {scaleY}, orient: {orient}, background: {background.ToString()}");
     }
 }
