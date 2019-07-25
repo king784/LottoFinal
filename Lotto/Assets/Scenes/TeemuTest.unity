@@ -1633,7 +1633,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &481216324
 Animator:
   serializedVersion: 3
@@ -14451,6 +14451,7 @@ MonoBehaviour:
     itemId: 0
     itemName: 
     description: 
+  itemCanvas: {fileID: 342051391}
 --- !u!4 &1523082038
 Transform:
   m_ObjectHideFlags: 0
