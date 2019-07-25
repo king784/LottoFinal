@@ -11,6 +11,30 @@ public class DoPHPStuff : MonoBehaviour
     public TMP_InputField quantity;
 
     public TMP_InputField itemId;
+    public GameObject bsCanvas;
+    bool prizesLoaded = false;
+
+    static DoPHPStuff instance = null;
+    void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+        if(!prizesLoaded)
+        {
+            GetAllItems();
+        }
+    }
 
     public void AddPHP()
     {
@@ -30,15 +54,15 @@ public class DoPHPStuff : MonoBehaviour
 
             if (www.isNetworkError)
             {
-                Debug.Log("Network error");
+                FindObjectOfType<UIManager>().ShowBSCanvas();
             }
             else if (www.isHttpError)
             {
-                Debug.Log("HTTP error!!");
+                FindObjectOfType<UIManager>().ShowBSCanvas();
             }
             else
             {
-                Debug.Log("Yay!!");
+                // Yay
             }
         }
     }
@@ -60,15 +84,45 @@ public class DoPHPStuff : MonoBehaviour
 
             if (www.isNetworkError)
             {
-                Debug.Log("Network error");
+                FindObjectOfType<UIManager>().ShowBSCanvas();
             }
             else if (www.isHttpError)
             {
-                Debug.Log("HTTP error!!");
+                FindObjectOfType<UIManager>().ShowBSCanvas();
             }
             else
             {
-                Debug.Log("Yay!!");
+                // Done
+            }
+        }
+    }
+
+    public void RemovePHPWithParameters(string newId, string newName)
+    {
+        StartCoroutine(RemovePHPWithParametersCo(newId, newName));
+    }
+
+    IEnumerator RemovePHPWithParametersCo(string newId, string newName)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("itemName", newName);
+        form.AddField("itemId", newId);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("https://arvonta.000webhostapp.com/Remove.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError)
+            {
+                FindObjectOfType<UIManager>().ShowBSCanvas();
+            }
+            else if (www.isHttpError)
+            {
+                FindObjectOfType<UIManager>().ShowBSCanvas();
+            }
+            else
+            {
+                // works
             }
         }
     }
@@ -85,31 +139,43 @@ public class DoPHPStuff : MonoBehaviour
         {
             yield return www.SendWebRequest();
 
-            string itemsDataFromDB = www.downloadHandler.text;
-            //Debug.Log(itemsDataFromDB);
-
-            string[] allItems = itemsDataFromDB.Split(';');
-
-            foreach (string item in allItems)
+            if (www.isNetworkError)
             {
-                Debug.Log(item);
-                if (item.Length > 1)
+                FindObjectOfType<UIManager>().ShowBSCanvas();
+            }
+            else if (www.isHttpError)
+            {
+                FindObjectOfType<UIManager>().ShowBSCanvas();
+            }
+            else
+            {
+                string itemsDataFromDB = www.downloadHandler.text;
+                //Debug.Log(itemsDataFromDB);
+
+                string[] allItems = itemsDataFromDB.Split(';');
+
+                foreach (string item in allItems)
                 {
-                    string[] itemParameters = item.Split('|');
-
-                    string[] tempParameters = new string[3];
-
-                    for (int i = 0; i < itemParameters.Length; i++)
+                    Debug.Log(item);
+                    if (item.Length > 1)
                     {
-                        string[] result = itemParameters[i].Split(':');
-                        tempParameters[i] = result[1];
+                        string[] itemParameters = item.Split('|');
+
+                        string[] tempParameters = new string[3];
+
+                        for (int i = 0; i < itemParameters.Length; i++)
+                        {
+                            string[] result = itemParameters[i].Split(':');
+                            tempParameters[i] = result[1];
+                        }
+                        //Debug.Log("\nTemp variables:\n" + tempParameters[0] + ", " + tempParameters[1] + ", " + tempParameters[2]);
+                        itemManager.addItemToList(tempParameters[0], tempParameters[1], tempParameters[2]);
+
                     }
-                    //Debug.Log("\nTemp variables:\n" + tempParameters[0] + ", " + tempParameters[1] + ", " + tempParameters[2]);
-                    itemManager.addItemToList(tempParameters[0], tempParameters[1], tempParameters[2]);
 
                 }
-
+                prizesLoaded = true;
             }
-        }
+        } 
     }
 }

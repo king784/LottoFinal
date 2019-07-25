@@ -31,6 +31,7 @@ public class RandomizePrize : MonoBehaviour
 
     float minForce = 15.0f; //3
     float maxForce = 30.0f; //15
+    public Item winItem;
 
     void Start()
     {
@@ -59,7 +60,7 @@ public class RandomizePrize : MonoBehaviour
         if(winfloat < winPercent)
         {
             win = true;
-            
+            winItem = FindObjectOfType<ItemManager>().RandomizeItem();
         }
         else
         {
