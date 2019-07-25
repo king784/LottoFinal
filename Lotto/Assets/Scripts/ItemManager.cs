@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ItemManager : MonoBehaviour
 {
     public List<Item> allItems = new List<Item>();
-    Item winItem;
+    public Item winItem;
 
     static ItemManager instance = null;
 
@@ -23,6 +23,16 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    public void ClearList()
+    {
+        allItems.Clear();
+    }
+
+    public void SortListAlphabetical()
+    {
+        allItems.Sort((x, y) => string.Compare(x.itemName, y.itemName));
+    }
+
     public void addItemToList(string id, string name, string description)
     {
         int idAsInt;
@@ -32,7 +42,6 @@ public class ItemManager : MonoBehaviour
         {
             allItems.Add(new Item(idAsInt, name, description));
         }
-
     }
 
     // Randomizes an item and removes it from local item list and database
