@@ -107,7 +107,7 @@ public class DoPHPStuff : MonoBehaviour
         StartCoroutine(RemovePHPWithParametersCo(newId, newName));
     }
 
-    IEnumerator RemovePHPWithParametersCo(string newId, string newName)
+    public IEnumerator RemovePHPWithParametersCo(string newId, string newName)
     {
         WWWForm form = new WWWForm();
         form.AddField("itemName", newName);

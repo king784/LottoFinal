@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class RandomizePrize : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class RandomizePrize : MonoBehaviour
     float maxForce = 30.0f; //15
     public Item winItem;
     bool canTouch = false;
+    bool ballsSpawned = false;
     public GameObject itemCanvas;
     public bool CanTouch
     {
@@ -51,12 +53,11 @@ public class RandomizePrize : MonoBehaviour
     {
         mainCam = Camera.main;
         camStartT = mainCam.transform;
-        SpawnBalls();
     }
 
     void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0) && !hasLottod && canTouch)
+        if((Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0) && !hasLottod && canTouch && ballsSpawned)
         {
             Lottery();
         }
@@ -64,6 +65,13 @@ public class RandomizePrize : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    public void SetRandomPrizeSettings(float newWinPercent, int newNumOfBalls)
+    {
+        winPercent = newWinPercent;
+        numOfBalls = newNumOfBalls;
+        SpawnBalls();
     }
     
     [ContextMenu("Lottoo")]
@@ -94,6 +102,8 @@ public class RandomizePrize : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         itemCanvas.SetActive(true);
+        itemCanvas.transform.Find("ItemName").transform.GetComponent<TextMeshProUGUI>().text = winItem.itemName;
+        itemCanvas.transform.Find("ItemDescription").transform.GetComponent<TextMeshProUGUI>().text = winItem.description;
     }
 
     IEnumerator MoveCameraToWin()
@@ -164,6 +174,7 @@ public class RandomizePrize : MonoBehaviour
         {
             SpawnBall(false);
         }
+        ballsSpawned = true;
     }
 
     void SpawnBall(bool win)

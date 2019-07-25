@@ -73,4 +73,16 @@ public class ItemManager : MonoBehaviour
         FindObjectOfType<DoPHPStuff>().RemovePHPWithParameters(winItem.itemId.ToString(), winItem.itemName);
         yield return null;
     }
+
+    public void DeleteFromDBInRaffle()
+    {
+        StartCoroutine(DeleteFromDBInRaffleCo());
+    }
+
+    public IEnumerator DeleteFromDBInRaffleCo()
+    {
+        allItems.Remove(winItem);
+        yield return StartCoroutine(FindObjectOfType<DoPHPStuff>().RemovePHPWithParametersCo(winItem.itemId.ToString(), winItem.itemName));
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

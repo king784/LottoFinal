@@ -31,6 +31,8 @@ public class RaffleSettings : MonoBehaviour
 
         this.totalTickets = totalthings;
         this.winningChance = chances;
+
+        FindObjectOfType<RandomizePrize>().SetRandomPrizeSettings((float)winningChance, totalTickets);
     }
 
     IEnumerator StartGettingRaffleSettings()
