@@ -31,12 +31,16 @@ public class RandomizePrize : MonoBehaviour
     public Material ballMat;
 
     float minForce = 15.0f; //3
-    float maxForce = 30.0f; //15
+    float maxForce = 20.0f; //15
     public Item winItem;
     bool canTouch = false;
-    bool ballsSpawned = false;
+    public bool ballsSpawned = false;
     public GameObject itemCanvas;
     public GameObject loseCanvas;
+    [SerializeField]
+    Color loseColor;
+    [SerializeField]
+    Color winColor;
     public bool CanTouch
     {
         get
@@ -56,17 +60,17 @@ public class RandomizePrize : MonoBehaviour
         camStartT = mainCam.transform;
     }
 
-    void Update()
-    {
-        if((Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0) && !hasLottod && canTouch && ballsSpawned)
-        {
-            Lottery();
-        }
-        if(Input.GetKeyDown(KeyCode.R) || Input.touchCount >= 2)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-    }
+    // void Update()
+    // {
+    //     if((Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0) && !hasLottod && canTouch && ballsSpawned)
+    //     {
+    //         Lottery();
+    //     }
+    //     if(Input.GetKeyDown(KeyCode.R) || Input.touchCount >= 2)
+    //     {
+    //         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //     }
+    // }
 
     public void SetRandomPrizeSettings(float newWinPercent, int newNumOfBalls)
     {
@@ -93,6 +97,7 @@ public class RandomizePrize : MonoBehaviour
         else
         {
             win = false;
+            StartCoroutine(ShowLoseCanvasCooldown());
         }
  
         StartCoroutine(MoveCameraToWin());
@@ -103,8 +108,8 @@ public class RandomizePrize : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         itemCanvas.SetActive(true);
-        itemCanvas.transform.Find("ItemName").transform.GetComponent<TextMeshProUGUI>().text = winItem.itemName;
-        itemCanvas.transform.Find("ItemDescription").transform.GetComponent<TextMeshProUGUI>().text = winItem.description;
+        itemCanvas.transform.GetChild(0).GetChild(0).Find("ItemName").transform.GetComponent<TextMeshProUGUI>().text = winItem.itemName;
+        itemCanvas.transform.GetChild(0).GetChild(0).Find("ItemDescription").transform.GetComponent<TextMeshProUGUI>().text = winItem.description;
     }
 
     IEnumerator ShowLoseCanvasCooldown()
@@ -203,12 +208,12 @@ public class RandomizePrize : MonoBehaviour
         if(win)
         {
             winBalls.Add(ball);
-            ball.GetComponent<Renderer>().material.color = Color.green;
+            ball.GetComponent<Renderer>().material.color = winColor;
         }
         else
         {
             loseBalls.Add(ball);
-            ball.GetComponent<Renderer>().material.color = Color.red;
+            ball.GetComponent<Renderer>().material.color = loseColor;
         }
     }
 }

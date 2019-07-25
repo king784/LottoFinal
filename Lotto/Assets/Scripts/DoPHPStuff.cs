@@ -12,6 +12,7 @@ public class DoPHPStuff : MonoBehaviour
 
     public TMP_InputField itemId;
     public GameObject bsCanvas;
+    public GameObject deletingCanvas;
     bool prizesLoaded = false;
 
     //raffle settings
@@ -79,6 +80,7 @@ public class DoPHPStuff : MonoBehaviour
 
     IEnumerator RemovePHPCo()
     {
+        deletingCanvas.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("itemName", itemName.text);
         form.AddField("itemId", itemId.text);
@@ -100,6 +102,7 @@ public class DoPHPStuff : MonoBehaviour
                 // Done
             }
         }
+        deletingCanvas.SetActive(false);
     }
 
     public void RemovePHPWithParameters(string newId, string newName)
@@ -109,6 +112,7 @@ public class DoPHPStuff : MonoBehaviour
 
     public IEnumerator RemovePHPWithParametersCo(string newId, string newName)
     {
+        deletingCanvas.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("itemName", newName);
         form.AddField("itemId", newId);
@@ -130,6 +134,7 @@ public class DoPHPStuff : MonoBehaviour
                 // works
             }
         }
+        deletingCanvas.SetActive(false);
     }
 
     public void GetAllItems()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -40,5 +41,10 @@ public class UIManager : MonoBehaviour
         itemCanvas.SetActive(true);
         itemNameText.text = winItem.itemName;
         itemNameDesc.text = winItem.description;
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

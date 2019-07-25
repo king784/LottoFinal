@@ -7,13 +7,19 @@ public class startGame : MonoBehaviour
 
     Animator anim;
     public GameObject paneeli;
+    RandomizePrize rp;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        rp = FindObjectOfType<RandomizePrize>();
     }
 
     public void startGameButton(){
+        if(!rp.ballsSpawned)
+        {
+            return;
+        }
         FindObjectOfType<RandomizePrize>().CanTouch = true;
         anim.SetBool("startade", true);
         StartCoroutine(toTheGame());
@@ -21,7 +27,9 @@ public class startGame : MonoBehaviour
 
     IEnumerator toTheGame(){
         yield return new WaitForSeconds(0.5f);
-        anim.SetBool("startade", true);
+        //anim.SetBool("startade", true);
         paneeli.SetActive(false);
+        yield return new WaitForSeconds(2.0f);
+        FindObjectOfType<RandomizePrize>().Lottery();
     }
 }
