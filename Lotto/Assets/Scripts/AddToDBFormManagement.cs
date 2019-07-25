@@ -83,7 +83,9 @@ public class AddToDBFormManagement : MonoBehaviour
             errorMessagePanel.SetActive(true);
             return;
         }else{// if no errors send info to database
-
+        //Debug.Log("Raffle settings are ok");
+        FindObjectOfType<DoPHPStuff>().SaveRaffleSettingsToDB();
+        FindObjectOfType<DB_ModificationUIController>().closeAllPanels();
         }
     }
 

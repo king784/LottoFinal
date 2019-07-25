@@ -9,6 +9,7 @@ public class ItemManager : MonoBehaviour
     Item winItem;
 
     static ItemManager instance = null;
+
     void Awake()
     {
         if(instance == null)
