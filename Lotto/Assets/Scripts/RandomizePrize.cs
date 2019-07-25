@@ -10,7 +10,10 @@ public class RandomizePrize : MonoBehaviour
     public int emptyTicket;
     public int victoryTicket;
     public float lessBalls;
-    List<GameObject> balls = new List<GameObject>();
+    public float winPercent;
+    public int numOfBalls;
+    List<GameObject> winBalls = new List<GameObject>();
+    List<GameObject> loseBalls = new List<GameObject>();
     Camera mainCam;
     Transform camStartT;
     public Transform camEndT;
@@ -52,20 +55,18 @@ public class RandomizePrize : MonoBehaviour
     public void Lottery()
     {
         hasLottod = true;
-        int winInt = Random.Range(0, (emptyTicket + victoryTicket));
-        Debug.Log(winInt);
-        if(winInt < emptyTicket)
+        float winfloat = Random.Range(0.0f, 100f);
+        if(winfloat < winPercent)
         {
-            Debug.Log("Hävisit");
-            win = false;
+            win = true;
+            
         }
         else
         {
-            Debug.Log("Voitit");
-            win = true;
+            win = false;
         }
         StartCoroutine(MoveCameraToWin());
-        StartCoroutine(MoveBallToWin(Mathf.FloorToInt(winInt*lessBalls)));
+        StartCoroutine(MoveBallToWin());
     }
 
     IEnumerator MoveCameraToWin()
@@ -83,21 +84,28 @@ public class RandomizePrize : MonoBehaviour
         }
     }
 
-    IEnumerator MoveBallToWin(int victoryBall)
+    IEnumerator MoveBallToWin()
     {
         yield return new WaitForSeconds(0.5f);
 
-        balls[victoryBall].GetComponent<Rigidbody>().velocity = Vector3.zero;
-        balls[victoryBall].GetComponent<SphereCollider>().enabled = false;
-        ballStartT = balls[victoryBall].transform;
-
+        GameObject tempBall;
         if(win)
         {
+            int victoryBall = Random.Range(0, winBalls.Count);
+            tempBall = winBalls[victoryBall];
+            winBalls[victoryBall].GetComponent<Rigidbody>().velocity = Vector3.zero;
+            winBalls[victoryBall].GetComponent<SphereCollider>().enabled = false;
+            ballStartT = winBalls[victoryBall].transform;
             StartCoroutine(ParticleCooldown(winPar, 1f));
             lightColorScript.StartLightCO(true);
         }
         else
         {
+            int victoryBall = Random.Range(0, loseBalls.Count);
+            tempBall = loseBalls[victoryBall];
+            loseBalls[victoryBall].GetComponent<Rigidbody>().velocity = Vector3.zero;
+            loseBalls[victoryBall].GetComponent<SphereCollider>().enabled = false;
+            ballStartT = loseBalls[victoryBall].transform;
             StartCoroutine(ParticleCooldown(losePar, 0.8f));
             lightColorScript.StartLightCO(false);
         }
@@ -105,7 +113,7 @@ public class RandomizePrize : MonoBehaviour
         float lerp = 0;
         while(lerp <= 1f)
         {
-            balls[victoryBall].transform.position = Vector3.Lerp(ballStartT.position, ballEndT.position, Easing.EaseOutBounce(lerp));
+            tempBall.transform.position = Vector3.Lerp(ballStartT.position, ballEndT.position, Easing.EaseOutBounce(lerp));
             lerp += Time.deltaTime * 0.1f;               
             yield return null;
         }   
@@ -119,44 +127,43 @@ public class RandomizePrize : MonoBehaviour
 
     public void SpawnBalls()
     {
-        for(int i = 0; i < Mathf.FloorToInt(emptyTicket * lessBalls); i++)
+        float awesomeNum = (float)numOfBalls*(winPercent*0.01f);
+        for(int i = 0; i < Mathf.FloorToInt(awesomeNum); i++)
         {
-            GameObject ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            balls.Add(ball);
-            ball.transform.position = ballSpawnPointT.position;
-            ball.AddComponent<Rigidbody>();
-            ball.AddComponent<ScaleBall>();
-            ball.GetComponent<SphereCollider>().material = bouncyMat;
-            ball.GetComponent<Rigidbody>().AddForce(new Vector3(
-                Random.Range(minForce, maxForce),
-                Random.Range(minForce, maxForce),
-                Random.Range(minForce, maxForce)
-            ), ForceMode.Impulse);
-            ball.gameObject.layer = 9;
-            ball.GetComponent<Rigidbody>().useGravity = false;
-            ball.GetComponent<Rigidbody>().mass = 0.0f;
-            ball.GetComponent<Renderer>().material = ballMat;
-            ball.GetComponent<Renderer>().material.color = Color.red;
+            SpawnBall(true);
         }
 
-        for(int i = 0; i < Mathf.FloorToInt(victoryTicket * lessBalls); i++)
+        for(int i = 0; i < Mathf.FloorToInt(numOfBalls-awesomeNum); i++)
         {
-            GameObject ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            balls.Add(ball);
-            ball.transform.position = ballSpawnPointT.position;
-            ball.AddComponent<Rigidbody>();
-            ball.AddComponent<ScaleBall>();
-            ball.GetComponent<SphereCollider>().material = bouncyMat;
-            ball.GetComponent<Rigidbody>().AddForce(new Vector3(
-                Random.Range(minForce, maxForce),
-                Random.Range(minForce, maxForce),
-                Random.Range(minForce, maxForce)
-            ), ForceMode.Impulse);
-            ball.gameObject.layer = 9;
-            ball.GetComponent<Rigidbody>().useGravity = false;
-            ball.GetComponent<Rigidbody>().mass = 0.0f;
-            ball.GetComponent<Renderer>().material = ballMat;
+            SpawnBall(false);
+        }
+    }
+
+    void SpawnBall(bool win)
+    {
+        GameObject ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        ball.transform.position = ballSpawnPointT.position;
+        ball.AddComponent<Rigidbody>();
+        ball.AddComponent<ScaleBall>();
+        ball.GetComponent<SphereCollider>().material = bouncyMat;
+        ball.GetComponent<Rigidbody>().AddForce(new Vector3(
+            Random.Range(minForce, maxForce),
+            Random.Range(minForce, maxForce),
+            Random.Range(minForce, maxForce)
+        ), ForceMode.Impulse);
+        ball.gameObject.layer = 9;
+        ball.GetComponent<Rigidbody>().useGravity = false;
+        ball.GetComponent<Rigidbody>().mass = 0.0f;
+        ball.GetComponent<Renderer>().material = ballMat;
+        if(win)
+        {
+            winBalls.Add(ball);
             ball.GetComponent<Renderer>().material.color = Color.green;
+        }
+        else
+        {
+            loseBalls.Add(ball);
+            ball.GetComponent<Renderer>().material.color = Color.red;
         }
     }
 }

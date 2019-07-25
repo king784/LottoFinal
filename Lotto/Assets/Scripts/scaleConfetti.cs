@@ -24,7 +24,7 @@ public class scaleConfetti : MonoBehaviour
         if(next < konfettiKasa.Length){
             nextColor += new Color(0,0,0,alphaSpeed);
             konfettiKasa[next].GetComponent<SpriteRenderer>().color = nextColor;
-            Debug.Log(konfettiKasa[next] + " " + nextColor.a); 
+            // Debug.Log(konfettiKasa[next] + " " + nextColor.a); 
 
             if(doIt && nextColor.a >= 1.0f){
                 StartCoroutine(delay());
@@ -47,6 +47,6 @@ public class scaleConfetti : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         //nextSprite();
         doIt = true;
-        Debug.Log("pöö");
+        // Debug.Log("pöö");
     }
 }

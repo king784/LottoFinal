@@ -12416,6 +12416,8 @@ MonoBehaviour:
   emptyTicket: 50
   victoryTicket: 50
   lessBalls: 0.3
+  winPercent: 80
+  numOfBalls: 20
   camEndT: {fileID: 1245292396}
   ballEndT: {fileID: 1829596566}
   winPar: {fileID: 4002427482097088493}
