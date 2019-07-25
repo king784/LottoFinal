@@ -183,7 +183,51 @@ public class DoPHPStuff : MonoBehaviour
             }
         }
     }
+IEnumerator GetRaffleSettings()
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get("https://arvonta.000webhostapp.com/GetRaffleSettings.php"))
+        {
+            yield return www.SendWebRequest();
 
+            if (www.isNetworkError)
+            {
+                FindObjectOfType<UIManager>().ShowBSCanvas();
+            }
+            else if (www.isHttpError)
+            {
+                FindObjectOfType<UIManager>().ShowBSCanvas();
+            }
+            else
+            {
+                string settingsDataFromDB = www.downloadHandler.text;
+                //Debug.Log(itemsDataFromDB);
+
+                string[] allItems = settingsDataFromDB.Split(';');
+
+                foreach (string item in allItems)
+                {
+                    Debug.Log(item);
+                    if (item.Length > 1)
+                    {
+                        string[] itemParameters = item.Split('|');
+
+                        string[] tempParameters = new string[3];
+
+                        for (int i = 0; i < itemParameters.Length; i++)
+                        {
+                            string[] result = itemParameters[i].Split(':');
+                            tempParameters[i] = result[1];
+                        }
+                        //Debug.Log("\nTemp variables:\n" + tempParameters[0] + ", " + tempParameters[1] + ", " + tempParameters[2]);
+                        FindObjectOfType<RaffleSettings>().setSettings(tempParameters[0], tempParameters[1], tempParameters[2]);
+
+                    }
+
+                }
+                prizesLoaded = true;
+            }
+        }
+    }
     public void SaveRaffleSettingsToDB()
     {
         StartCoroutine(AddSettingsToDB());

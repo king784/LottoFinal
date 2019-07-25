@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class makeIemPanelsFromItems : MonoBehaviour
+public class RaffleSettings : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,9 @@ public class makeIemPanelsFromItems : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void setSettings(string name, string total, string winchance){
+
     }
 }
