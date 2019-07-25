@@ -7,6 +7,7 @@ public class ItemManager : MonoBehaviour
     public List<Item> allItems = new List<Item>();
 
     static ItemManager instance = null;
+
     void Awake()
     {
         if(instance == null)

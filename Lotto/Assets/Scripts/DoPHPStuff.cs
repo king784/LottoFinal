@@ -14,10 +14,15 @@ public class DoPHPStuff : MonoBehaviour
     public GameObject bsCanvas;
     bool prizesLoaded = false;
 
+    //raffle settings
+    public TMP_InputField totalTickets;
+    public TMP_InputField winningChance;
+    public TMP_InputField raffleName;
+
     static DoPHPStuff instance = null;
     void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -30,7 +35,7 @@ public class DoPHPStuff : MonoBehaviour
 
     void Start()
     {
-        if(!prizesLoaded)
+        if (!prizesLoaded)
         {
             GetAllItems();
         }
@@ -176,6 +181,37 @@ public class DoPHPStuff : MonoBehaviour
                 }
                 prizesLoaded = true;
             }
-        } 
+        }
+    }
+
+    public void SaveRaffleSettingsToDB()
+    {
+        StartCoroutine(AddSettingsToDB());
+    }
+
+    IEnumerator AddSettingsToDB()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("raffleName", raffleName.text);
+        form.AddField("totalTickets", totalTickets.text);
+        form.AddField("winningChance", winningChance.text);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("https://arvonta.000webhostapp.com/RaffleSettings.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError)
+            {
+                FindObjectOfType<UIManager>().ShowBSCanvas();
+            }
+            else if (www.isHttpError)
+            {
+                FindObjectOfType<UIManager>().ShowBSCanvas();
+            }
+            else
+            {
+                // Yay
+            }
+        }
     }
 }

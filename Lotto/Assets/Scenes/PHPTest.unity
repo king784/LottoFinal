@@ -464,7 +464,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Kuinka monta arpaa olisi yhteens\xE4 irl?\u200B"
+  m_text: "Kuinka monta palloa piirret\xE4\xE4n?\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -533,10 +533,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 94472585}
-    characterCount: 39
+    characterCount: 32
     spriteCount: 0
-    spaceCount: 5
-    wordCount: 6
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -1479,8 +1479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -235, y: 166}
-  m_SizeDelta: {x: 300, y: 100}
+  m_AnchoredPosition: {x: -28, y: 166}
+  m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &244553934
 MonoBehaviour:
@@ -2527,8 +2527,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -235, y: 166}
-  m_SizeDelta: {x: 300, y: 100}
+  m_AnchoredPosition: {x: -28, y: 166}
+  m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &524019716
 MonoBehaviour:
@@ -2550,7 +2550,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Arpojen m\xE4\xE4r\xE4"
+  m_text: "Pallojen m\xE4\xE4r\xE4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e146c1a5a3c7b28459179c36e89d529a, type: 2}
   m_sharedMaterial: {fileID: -6001969499800036351, guid: e146c1a5a3c7b28459179c36e89d529a,
@@ -2621,7 +2621,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 524019716}
-    characterCount: 13
+    characterCount: 14
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -6906,8 +6906,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -235, y: 166}
-  m_SizeDelta: {x: 300, y: 100}
+  m_AnchoredPosition: {x: -28, y: 166}
+  m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1195301971
 MonoBehaviour:
@@ -10564,7 +10564,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: "Kuinka monta arpaa olisi yhteens\xE4 irl?"
+  m_Text: "Kuinka monta palloa piirret\xE4\xE4n?"
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -10880,6 +10880,11 @@ MonoBehaviour:
   itemDesc: {fileID: 976031783}
   quantity: {fileID: 1781470868}
   itemId: {fileID: 0}
+  bsCanvas: {fileID: 1723474868538704248, guid: b48119bf85e9c9042847944654c3048e,
+    type: 3}
+  totalTickets: {fileID: 1906065600}
+  winningChance: {fileID: 820340181}
+  raffleName: {fileID: 943083970}
 --- !u!4 &1979009051
 Transform:
   m_ObjectHideFlags: 0
