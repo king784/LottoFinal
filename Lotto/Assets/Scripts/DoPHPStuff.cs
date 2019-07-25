@@ -112,7 +112,8 @@ public class DoPHPStuff : MonoBehaviour
 
     public IEnumerator RemovePHPWithParametersCo(string newId, string newName)
     {
-        deletingCanvas.SetActive(true);
+        if(deletingCanvas != null)
+            deletingCanvas.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("itemName", newName);
         form.AddField("itemId", newId);
@@ -134,7 +135,8 @@ public class DoPHPStuff : MonoBehaviour
                 // works
             }
         }
-        deletingCanvas.SetActive(false);
+        if(deletingCanvas != null)
+            deletingCanvas.SetActive(false);
     }
 
     public void GetAllItems()
