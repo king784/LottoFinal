@@ -61,11 +61,16 @@ public class RandomizePrize : MonoBehaviour
         {
             win = true;
             winItem = FindObjectOfType<ItemManager>().RandomizeItem();
+            if(winItem.itemName == "")
+            {
+                return;
+            }
         }
         else
         {
             win = false;
         }
+ 
         StartCoroutine(MoveCameraToWin());
         StartCoroutine(MoveBallToWin());
     }
