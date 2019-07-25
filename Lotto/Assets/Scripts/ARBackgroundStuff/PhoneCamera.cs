@@ -34,7 +34,7 @@ public class PhoneCamera : MonoBehaviour
         {
             if (!devices[i].isFrontFacing)//if camera isn't the front camera
             {
-                backCam = new WebCamTexture(devices[i].name, Screen.width, Screen.height);//back camera is stored with the given values
+                backCam = new WebCamTexture(devices[i].name, 540, 960, 30); //Screen.width, Screen.height);//back camera is stored with the given values
                 //e2.text = "found a camera that wasn't front facing";
             }
         }

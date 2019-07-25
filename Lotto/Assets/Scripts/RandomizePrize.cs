@@ -36,6 +36,7 @@ public class RandomizePrize : MonoBehaviour
     bool canTouch = false;
     bool ballsSpawned = false;
     public GameObject itemCanvas;
+    public GameObject loseCanvas;
     public bool CanTouch
     {
         get
@@ -104,6 +105,12 @@ public class RandomizePrize : MonoBehaviour
         itemCanvas.SetActive(true);
         itemCanvas.transform.Find("ItemName").transform.GetComponent<TextMeshProUGUI>().text = winItem.itemName;
         itemCanvas.transform.Find("ItemDescription").transform.GetComponent<TextMeshProUGUI>().text = winItem.description;
+    }
+
+    IEnumerator ShowLoseCanvasCooldown()
+    {
+        yield return new WaitForSeconds(4.0f);
+        loseCanvas.SetActive(true);
     }
 
     IEnumerator MoveCameraToWin()
