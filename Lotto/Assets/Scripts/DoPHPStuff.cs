@@ -161,7 +161,7 @@ public class DoPHPStuff : MonoBehaviour
 
                 foreach (string item in allItems)
                 {
-                    Debug.Log(item);
+                    //Debug.Log(item);
                     if (item.Length > 1)
                     {
                         string[] itemParameters = item.Split('|');
@@ -183,7 +183,7 @@ public class DoPHPStuff : MonoBehaviour
             }
         }
     }
-IEnumerator GetRaffleSettings()
+    public IEnumerator GetRaffleSettings()
     {
         using (UnityWebRequest www = UnityWebRequest.Get("https://arvonta.000webhostapp.com/GetRaffleSettings.php"))
         {
@@ -206,7 +206,7 @@ IEnumerator GetRaffleSettings()
 
                 foreach (string item in allItems)
                 {
-                    Debug.Log(item);
+                    //Debug.Log(item);
                     if (item.Length > 1)
                     {
                         string[] itemParameters = item.Split('|');
