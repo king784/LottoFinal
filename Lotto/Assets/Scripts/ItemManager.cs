@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemManager : MonoBehaviour
 {
     public List<Item> allItems = new List<Item>();
+    Item winItem;
 
     static ItemManager instance = null;
     void Awake()
@@ -44,10 +46,21 @@ public class ItemManager : MonoBehaviour
         else
         {
             int randInt = Random.Range(0, allItems.Count);
-            Item tempItem = allItems[randInt];
-            allItems.RemoveAt(randInt);
-            FindObjectOfType<DoPHPStuff>().RemovePHPWithParameters(tempItem.itemId.ToString(), tempItem.itemName);
-            return tempItem;
+            winItem = allItems[randInt];
+            return winItem;
         }
+    }
+
+    public void DeleteFromDB()
+    {
+        StartCoroutine(DeleteFromDBCO());
+    }
+
+    IEnumerator DeleteFromDBCO()
+    {
+        allItems.Remove(winItem);
+        // yield this
+        FindObjectOfType<DoPHPStuff>().RemovePHPWithParameters(winItem.itemId.ToString(), winItem.itemName);
+        yield return null;
     }
 }

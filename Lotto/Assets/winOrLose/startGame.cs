@@ -14,7 +14,7 @@ public class startGame : MonoBehaviour
     }
 
     public void startGameButton(){
-        Debug.Log("Alkaa");
+        FindObjectOfType<RandomizePrize>().CanTouch = true;
         anim.SetBool("startade", true);
         StartCoroutine(toTheGame());
     }
@@ -23,6 +23,5 @@ public class startGame : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         anim.SetBool("startade", true);
         paneeli.SetActive(false);
-        Debug.Log("Valmis");
     }
 }

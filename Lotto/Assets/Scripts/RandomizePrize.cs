@@ -32,6 +32,20 @@ public class RandomizePrize : MonoBehaviour
     float minForce = 15.0f; //3
     float maxForce = 30.0f; //15
     public Item winItem;
+    bool canTouch = false;
+    public GameObject itemCanvas;
+    public bool CanTouch
+    {
+        get
+        {
+            return canTouch;
+        }
+        set
+        {
+            canTouch = value;
+        }
+    }
+
 
     void Start()
     {
@@ -42,7 +56,7 @@ public class RandomizePrize : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0 && !hasLottod)
+        if((Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0) && !hasLottod && canTouch)
         {
             Lottery();
         }
@@ -65,6 +79,7 @@ public class RandomizePrize : MonoBehaviour
             {
                 return;
             }
+            StartCoroutine(ShowItemCanvasCooldown());
         }
         else
         {
@@ -73,6 +88,12 @@ public class RandomizePrize : MonoBehaviour
  
         StartCoroutine(MoveCameraToWin());
         StartCoroutine(MoveBallToWin());
+    }
+
+    IEnumerator ShowItemCanvasCooldown()
+    {
+        yield return new WaitForSeconds(5.0f);
+        itemCanvas.SetActive(true);
     }
 
     IEnumerator MoveCameraToWin()
