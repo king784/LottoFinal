@@ -68,6 +68,6 @@ public class ItemManager : MonoBehaviour
     {
         allItems.Remove(winItem);
         yield return StartCoroutine(FindObjectOfType<DoPHPStuff>().RemovePHPWithParametersCo(winItem.itemId.ToString(), winItem.itemName));
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
