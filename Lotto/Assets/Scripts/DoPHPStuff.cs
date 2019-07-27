@@ -20,27 +20,13 @@ public class DoPHPStuff : MonoBehaviour
     public TMP_InputField winningChance;
     public TMP_InputField raffleName;
 
-    static DoPHPStuff instance = null;
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    void Start()
-    {
-        if (!prizesLoaded)
-        {
-            GetAllItems();
-        }
-    }
+    // void Start()
+    // {
+    //     if (!prizesLoaded)
+    //     {
+    //         GetAllItems();
+    //     }
+    // }
 
     public void AddPHP()
     {
@@ -144,7 +130,7 @@ public class DoPHPStuff : MonoBehaviour
         StartCoroutine(GetAllPrizesCo());
     }
 
-    IEnumerator GetAllPrizesCo()
+    public IEnumerator GetAllPrizesCo()
     {
         ItemManager itemManager = FindObjectOfType<ItemManager>();
         using (UnityWebRequest www = UnityWebRequest.Get("https://arvonta.000webhostapp.com/GetItems.php"))

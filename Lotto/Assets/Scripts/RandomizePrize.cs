@@ -87,11 +87,6 @@ public class RandomizePrize : MonoBehaviour
         if(winfloat < winPercent)
         {
             win = true;
-            winItem = FindObjectOfType<ItemManager>().RandomizeItem();
-            if(winItem.itemName == "")
-            {
-                return;
-            }
             StartCoroutine(ShowItemCanvasCooldown());
         }
         else
@@ -107,6 +102,8 @@ public class RandomizePrize : MonoBehaviour
     IEnumerator ShowItemCanvasCooldown()
     {
         yield return new WaitForSeconds(5.0f);
+        yield return StartCoroutine(FindObjectOfType<DoPHPStuff>().GetAllPrizesCo());
+        winItem = FindObjectOfType<ItemManager>().RandomizeItem();
         itemCanvas.SetActive(true);
         itemCanvas.transform.GetChild(0).GetChild(0).Find("ItemName").transform.GetComponent<TextMeshProUGUI>().text = winItem.itemName;
         itemCanvas.transform.GetChild(0).GetChild(0).Find("ItemDescription").transform.GetComponent<TextMeshProUGUI>().text = winItem.description;

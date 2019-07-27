@@ -8,21 +8,6 @@ public class ItemManager : MonoBehaviour
     public List<Item> allItems = new List<Item>();
     public Item winItem;
 
-    static ItemManager instance = null;
-
-    void Awake()
-    {
-        if(instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public void ClearList()
     {
         allItems.Clear();
