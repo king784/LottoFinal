@@ -14,13 +14,32 @@ public class CreateChildPanels : MonoBehaviour
         itemManager = FindObjectOfType<ItemManager>();
     }
 
-    public void CreatePanels()
+    public void makePanels()//openRemoveFromDBBtn calls this
     {
-        for(int i = 0; i < itemManager.allItems.Count; i++)
+        StartCoroutine(GetAllItems());
+    }
+
+    void CreatePanels()
+    {
+        if (itemParent.transform.childCount > 0)
+        {
+          for (int i = 0; i < itemParent.transform.childCount; i++)
+            {
+                Destroy(itemParent.transform.GetChild(i).gameObject);
+            }
+        }
+
+        for (int i = 0; i < itemManager.allItems.Count; i++)
         {
             GameObject newPanel = GameObject.Instantiate(childPanel, itemParent.transform);
             newPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = itemManager.allItems[i].itemId.ToString();
             newPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = itemManager.allItems[i].itemName;
         }
+    }
+
+    IEnumerator GetAllItems()
+    {
+        yield return StartCoroutine(FindObjectOfType<DoPHPStuff>().GetAllPrizesCo());
+        CreatePanels();
     }
 }

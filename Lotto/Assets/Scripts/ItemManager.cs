@@ -23,10 +23,22 @@ public class ItemManager : MonoBehaviour
         int idAsInt;
         bool conversionSuccess = int.TryParse(id, out idAsInt);
         //Debug.Log(string.Format($"Adding item to all items, id conversion: {conversionSuccess}"));
-        if (conversionSuccess)
+        if (conversionSuccess && !DoesItemWithidAlreadyExist(idAsInt))
         {
             allItems.Add(new Item(idAsInt, name, description));
         }
+    }
+
+    bool DoesItemWithidAlreadyExist(int id)
+    {
+        for(int i = 0; i < allItems.Count; i++)
+        {
+            if(allItems[i].itemId == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Randomizes an item and removes it from local item list and database
