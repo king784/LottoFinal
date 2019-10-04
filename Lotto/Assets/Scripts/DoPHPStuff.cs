@@ -152,7 +152,7 @@ public class DoPHPStuff : MonoBehaviour
 
                 string[] allItems = itemsDataFromDB.Split(';');
 
-                Debug.Log(allItems.Length);
+                //Debug.Log(allItems.Length);
 
                 if(allItems.Length != 1)
                 {
