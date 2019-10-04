@@ -100,11 +100,11 @@ public class RandomizePrize : MonoBehaviour
     }
 
     IEnumerator ShowItemCanvasCooldown()
-    {
+    {   
         yield return new WaitForSeconds(5.0f);
         yield return StartCoroutine(FindObjectOfType<DoPHPStuff>().GetAllPrizesCo());
-        yield return StartCoroutine(FindObjectOfType<ItemManager>().DeleteFromDBInRaffleCo());
         winItem = FindObjectOfType<ItemManager>().RandomizeItem();
+        yield return StartCoroutine(FindObjectOfType<ItemManager>().DeleteFromDBInRaffleCo());
         itemCanvas.SetActive(true);
         itemCanvas.transform.GetChild(0).GetChild(0).Find("ItemName").transform.GetComponent<TextMeshProUGUI>().text = winItem.itemName;
         itemCanvas.transform.GetChild(0).GetChild(0).Find("ItemDescription").transform.GetComponent<TextMeshProUGUI>().text = winItem.description;
