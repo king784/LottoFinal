@@ -152,25 +152,30 @@ public class DoPHPStuff : MonoBehaviour
 
                 string[] allItems = itemsDataFromDB.Split(';');
 
-                foreach (string item in allItems)
+                Debug.Log(allItems.Length);
+
+                if(allItems.Length != 1)
                 {
-                    //Debug.Log(item);
-                    if (item.Length > 1)
+                    foreach (string item in allItems)
                     {
-                        string[] itemParameters = item.Split('|');
-
-                        string[] tempParameters = new string[3];
-
-                        for (int i = 0; i < itemParameters.Length; i++)
+                        //Debug.Log(item);
+                        if (item.Length > 1)
                         {
-                            string[] result = itemParameters[i].Split(':');
-                            tempParameters[i] = result[1];
+                            string[] itemParameters = item.Split('|');
+
+                            string[] tempParameters = new string[3];
+
+                            for (int i = 0; i < itemParameters.Length; i++)
+                            {
+                                string[] result = itemParameters[i].Split(':');
+                                tempParameters[i] = result[1];
+                            }
+                            //Debug.Log("\nTemp variables:\n" + tempParameters[0] + ", " + tempParameters[1] + ", " + tempParameters[2]);
+                            itemManager.addItemToList(tempParameters[0], tempParameters[1], tempParameters[2]);
+
                         }
-                        //Debug.Log("\nTemp variables:\n" + tempParameters[0] + ", " + tempParameters[1] + ", " + tempParameters[2]);
-                        itemManager.addItemToList(tempParameters[0], tempParameters[1], tempParameters[2]);
 
                     }
-
                 }
                 prizesLoaded = true;
             }
