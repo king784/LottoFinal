@@ -98,8 +98,7 @@ public class DoPHPStuff : MonoBehaviour
 
     public IEnumerator RemovePHPWithParametersCo(string newId, string newName)
     {
-        if(deletingCanvas != null)
-            deletingCanvas.SetActive(true);
+        deletingCanvas.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("itemName", newName);
         form.AddField("itemId", newId);
@@ -121,8 +120,7 @@ public class DoPHPStuff : MonoBehaviour
                 // works
             }
         }
-        if(deletingCanvas != null)
-            deletingCanvas.SetActive(false);
+        deletingCanvas.SetActive(false);
     }
 
     public void GetAllItems()
@@ -197,25 +195,28 @@ public class DoPHPStuff : MonoBehaviour
 
                 string[] allItems = settingsDataFromDB.Split(';');
 
-                foreach (string item in allItems)
+                if(allItems.Length != 1)
                 {
-                    //Debug.Log(item);
-                    if (item.Length > 1)
+                    foreach (string item in allItems)
                     {
-                        string[] itemParameters = item.Split('|');
-
-                        string[] tempParameters = new string[3];
-
-                        for (int i = 0; i < itemParameters.Length; i++)
+                        //Debug.Log(item);
+                        if (item.Length > 1)
                         {
-                            string[] result = itemParameters[i].Split(':');
-                            tempParameters[i] = result[1];
+                            string[] itemParameters = item.Split('|');
+
+                            string[] tempParameters = new string[3];
+
+                            for (int i = 0; i < itemParameters.Length; i++)
+                            {
+                                string[] result = itemParameters[i].Split(':');
+                                tempParameters[i] = result[1];
+                            }
+                            //Debug.Log("\nTemp variables:\n" + tempParameters[0] + ", " + tempParameters[1] + ", " + tempParameters[2]);
+                            FindObjectOfType<RaffleSettings>().setSettings(tempParameters[0], tempParameters[1], tempParameters[2]);
+
                         }
-                        //Debug.Log("\nTemp variables:\n" + tempParameters[0] + ", " + tempParameters[1] + ", " + tempParameters[2]);
-                        FindObjectOfType<RaffleSettings>().setSettings(tempParameters[0], tempParameters[1], tempParameters[2]);
 
                     }
-
                 }
                 prizesLoaded = true;
             }
